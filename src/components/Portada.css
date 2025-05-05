@@ -1,0 +1,207 @@
+.portada {
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  position: relative;
+}
+
+.portada.h-auto {
+  height: auto;
+  width: 100%;
+  align-items: stretch;
+  justify-content: flex-start;
+  display: block; /* importante para que no limite flex a todo el contenido */
+}
+
+.titulo {
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.overlay-box {
+  background-color: rgba(255, 255, 255, 0.85);
+  max-width: 500px;
+  border-radius: 1rem;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+
+
+.btn-custom:hover {
+  background-color: #a4885f;
+}
+
+.music-control {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background-color: rgba(255, 255, 255, 0.85);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+body {
+  overflow-y: scroll; /* Permite scroll vertical */
+}
+
+.full-page-scroll {
+  flex-direction: column;
+}
+
+.section-principal {
+  min-height: 100vh; /* Cada sección ocupa toda la altura de la pantalla */
+  width: 100vw; /* Cada sección ocupa todo el ancho */
+  margin: 0; /* Elimina márgenes entre las secciones */
+  padding: 0; /* Elimina relleno */
+  box-sizing: border-box; /* Asegura que el padding no afecte el tamaño total */
+}
+
+/* Opcional: Añadir suavizado para el scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+
+.frase-romantica {
+  background-color: #c1a57b;
+  color: white;
+  text-align: center;
+  padding: 1rem 0.5rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin: 0; /* Esto es importante */
+}
+
+.contenido-contador {
+  background-color: white;
+  padding: 1.5rem 1rem; /* Más compacto */
+  margin: 0;
+  text-align: center;
+}
+
+.btn-custom {
+  background-color: #c1a57b;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  display: inline-block;
+  margin-top: 1.5rem; /* <-- este margen lo separa del contador */
+  text-decoration: none; 
+}
+
+.subtitulo {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 0.5rem;
+  letter-spacing: 1px;
+}
+
+.fecha-evento {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+  color: #222;
+}
+
+.contador-grid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.separador {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 1.5rem; /* alinea con los números */
+}
+
+.numero {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.etiqueta {
+  font-size: 0.875rem;
+  color: #666;
+}
+
+.btn-agendar {
+  background-color: #c1a57b;
+  color: white;
+  border: none;
+  padding: 0.75rem 2rem;
+  border-radius: 9999px;
+  font-weight: bold;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.btn-agendar:hover {
+  background-color: #a4885f;
+}
+
+
+@media (max-width: 640px) {
+  .portada {
+    padding: 1.5rem 0.5rem;
+  }
+
+  .overlay-box {
+    padding: 1.5rem 1rem;
+    margin-top: 1rem;
+  }
+
+  img {
+    height: 100px;
+  }
+}
+  
+/* Estilo para la sección de Celebración */
+.celebracion-section {
+  background-color: #fefefe;
+  padding: 50px 20px;
+  text-align: center;
+}
+
+.celebracion-icon-container {
+  margin-bottom: 20px;
+}
+
+.celebracion-text h2 {
+  font-size: 2.5rem;
+  color: #e74c3c;
+  margin-bottom: 20px;
+}
+
+.celebracion-text p {
+  font-size: 1.2rem;
+  color: #555;
+  margin-bottom: 30px;
+}
+
+
+

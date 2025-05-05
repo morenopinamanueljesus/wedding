@@ -7,7 +7,16 @@ import './Portada.css';
 import fondo from '../assets/fondo.jpg';
 import imagen1 from '../assets/1.jpg';
 import Lottie from 'react-lottie';
-import animationData from '../assets/brindis.json'; 
+import animationData from '../assets/brindis.json';
+import Slider from "react-slick";
+import foto1 from "../assets/fondo.jpg";
+import foto2 from "../assets/fondo.jpg";
+import foto3 from "../assets/fondo.jpg";
+import foto4 from "../assets/fondo.jpg";
+import noviosAnimationData from '../assets/novios.json';
+import regaloAnimationData from '../assets/regalo.json';
+import asistenciaAnimationData from '../assets/mensaje.json';
+
 
 export default function Rsvp() {
   const { codigo } = useParams();
@@ -20,6 +29,7 @@ export default function Rsvp() {
   const audioRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(true);
   const [dias, horas, minutos, segundos] = useCountdown(new Date("2025-09-19T21:00:00"));
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     const fetchInvitado = async () => {
@@ -69,10 +79,44 @@ export default function Rsvp() {
 
   if (loading) return <p className="text-center text-pink-600">Cargando...</p>;
 
+
+  // Función para abrir o cerrar el modal
+  const toggleModal = () => {
+    console.log("Modal Toggled", showModal);  // Esto ayudará a verificar el estado.
+    setShowModal(!showModal);
+  };
+
   const defaultOptions = {
     loop: true,
     autoplay: true,
     animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice',
+    },
+  };
+
+  const defaultNoviosOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: noviosAnimationData,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice',
+    },
+  };
+
+  const defaultRegaloOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: regaloAnimationData,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice',
+    },
+  };
+
+  const defaultAsistenciaOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: asistenciaAnimationData,
     rendererSettings: {
       preserveAspectRatio: 'xMidYMid slice',
     },
@@ -158,7 +202,7 @@ export default function Rsvp() {
               </div>
             </section>
 
-            {/* Nueva Sección: Celebración */}
+            {/* Sección: Celebración */}
             <section id="celebracion" className="celebracion-section">
               <div className="celebracion-icon-container">
                 <Lottie options={defaultOptions} height={200} width={200} />
@@ -173,6 +217,97 @@ export default function Rsvp() {
                   className="btn-custom"
                 >
                   Ver Ubicación
+                </a>
+              </div>
+            </section>
+
+            {/* Sección: Galería */}
+            <section id="galeria" className="celebracion-section">
+              <div className="celebracion-text">
+                <p className="subtitulo">NUESTRA HISTORIA</p>
+                <div className="mx-auto w-11/12 md:w-3/4 px-4">
+                  <Slider
+                    dots={false}
+                    infinite={true}
+                    speed={1000}
+                    slidesToShow={4}
+                    slidesToScroll={1}
+                    autoplay={true}
+                    autoplaySpeed={2000}
+                    pauseOnHover={true}
+                    responsive={[
+                      { breakpoint: 1024, settings: { slidesToShow: 3 } },
+                      { breakpoint: 768, settings: { slidesToShow: 2 } },
+                      { breakpoint: 480, settings: { slidesToShow: 1 } },
+                    ]}
+                  >
+                    {[foto1, foto2, foto3, foto4].map((foto, index) => (
+                      <div key={index}>
+                        <img
+                          src={foto}
+                          alt={`Foto ${index + 1}`}
+                          className="rounded-xl w-full h-auto object-cover"
+                        />
+                      </div>
+                    ))}
+                  </Slider>
+                </div>
+                <p></p>
+                <div className="celebracion-icon-container">
+                  <Lottie options={defaultNoviosOptions} height={150} width={150} />
+                </div>
+                <div className="celebracion-text">
+                  <p className="subtitulo">Nuestra historia se viste de gala</p>
+                  <p className="subtitulo">Y TÚ TAMBIÉN!!!</p>
+                </div>
+              </div>
+            </section>
+
+            {/* Sección: Regalo */}
+            <section id="regalo" className="celebracion-section">
+              <div className="celebracion-icon-container">
+                <Lottie options={defaultRegaloOptions} height={200} width={200} />
+              </div>
+              <div className="celebracion-text">
+                <p className="subtitulo">
+                  Si deseas hacernos un regalo, además de tu hermosa presencia...
+                </p>
+                <button onClick={toggleModal} className="btn-custom">
+                  Ver Datos Bancarios
+                </button>
+              </div>
+
+              {/* Modal */}
+              {showModal && (
+                <div className="custom-modal">
+                  <div className="custom-modal-overlay" onClick={toggleModal} />
+                  <div className="custom-modal-content">
+                    <span className="close" onClick={toggleModal}>&times;</span>
+                    <h3>Datos Bancarios</h3>
+                    <p>Banco: Banco Ejemplo</p>
+                    <p>Cuenta: 1234-5678-9101-1121</p>
+                    <p>IBAN: ES12 3456 7890 1234 5678 9101</p>
+                    <p>SWIFT: ABCD1234</p>
+                  </div>
+                </div>
+              )}
+            </section>
+
+            {/* Sección: Asistencia */}
+            <section id="asistencia" className="celebracion-section">
+              <div className="celebracion-icon-container">
+                <Lottie options={defaultAsistenciaOptions} height={200} width={200} />
+              </div>
+              <div className="celebracion-text">
+                <p className="subtitulo">CONFIRMA TU ASISTENCIA</p>
+                <p className="subtitulo">Dí un Sí a nuestra invitación!!!</p>
+                <a
+                  href="https://goo.gl/maps/xyz123" // Aquí va el enlace de Google Maps del lugar
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-custom"
+                >
+                  Confirmar asistencia
                 </a>
               </div>
             </section>

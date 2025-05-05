@@ -16,7 +16,7 @@ import foto4 from "../assets/fondo.jpg";
 import noviosAnimationData from '../assets/novios.json';
 import regaloAnimationData from '../assets/regalo.json';
 import asistenciaAnimationData from '../assets/mensaje.json';
-
+import emailjs from 'emailjs-com';
 
 export default function Rsvp() {
   const { codigo } = useParams();
@@ -66,14 +66,25 @@ export default function Rsvp() {
   }, [isPlaying]);
 
   const handleConfirmarAsistencia = async () => {
+    if (asistencia) {
+      alert("Ya has confirmado tu asistencia.");
+      return;
+    }
+
     try {
       await updateDoc(doc(db, "invitados", codigo), {
-        asistenciaConfirmada: asistencia,
-        mensaje: mensaje,
+        asistenciaConfirmada: true,
       });
-      alert("¡Gracias por confirmar!");
+      setAsistencia(true);
+
+      await emailjs.send("service_lwixr2b", "template_1e0s3hj", {
+        nombre: invitado.nombreCompleto
+      }, "80jNXmTMgIDfMp0sk");
+
+      alert("¡Gracias por confirmar tu asistencia!");
     } catch (error) {
-      console.error("Error al guardar confirmación:", error);
+      console.error("Error al confirmar asistencia:", error);
+      alert("Hubo un error. Intenta de nuevo.");
     }
   };
 
@@ -135,8 +146,10 @@ export default function Rsvp() {
           style={{ backgroundImage: `url(${fondo})` }}
         >
           <div className="overlay-box text-center mt-4 p-4">
-            <h2 className="text-2xl font-bold mb-4 text-pink-600">¡Hola, {invitado?.nombreCompleto}!</h2>
-            <p className="mb-4 text-gray-700">Nos hace muy felices que estés invitado a nuestro gran día.</p>
+            <div className="titulo text-center text-black mb-5">
+              <h1 className="display-4 fw-bold">Hola, {invitado?.nombreCompleto}</h1>
+            </div>
+            <h4 className="fw-bold text-uppercase mb-3">Nos hace muy felices que estés invitado a nuestro gran día.</h4>
             <button className="btn-custom" onClick={() => setMostrarInvitacion(true)}>Abrir Invitación</button>
           </div>
         </div>
@@ -165,7 +178,7 @@ export default function Rsvp() {
 
               <div className="contenido-contador">
                 <p className="subtitulo">TE ESPERAMOS EL DÍA</p>
-                <h2 className="fecha-evento">19 de Septiembre</h2>
+                <h2 className="fecha-evento">19 de Septiembre a las 21:00</h2>
 
                 <div className="contador-grid">
                   <div>
@@ -301,14 +314,9 @@ export default function Rsvp() {
               <div className="celebracion-text">
                 <p className="subtitulo">CONFIRMA TU ASISTENCIA</p>
                 <p className="subtitulo">Dí un Sí a nuestra invitación!!!</p>
-                <a
-                  href="https://goo.gl/maps/xyz123" // Aquí va el enlace de Google Maps del lugar
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-custom"
-                >
+                <button className="btn-custom" onClick={handleConfirmarAsistencia}>
                   Confirmar asistencia
-                </a>
+                </button>
               </div>
             </section>
           </div>

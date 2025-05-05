@@ -16,7 +16,9 @@ import foto4 from "../assets/fondo.jpg";
 import noviosAnimationData from '../assets/novios.json';
 import regaloAnimationData from '../assets/regalo.json';
 import asistenciaAnimationData from '../assets/mensaje.json';
+import redesAnimationData from '../assets/redes.json';
 import emailjs from 'emailjs-com';
+import { FaInstagram } from 'react-icons/fa';
 
 export default function Rsvp() {
   const { codigo } = useParams();
@@ -133,6 +135,15 @@ export default function Rsvp() {
     },
   };
 
+  const defaultRedesOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: redesAnimationData,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice',
+    },
+  };
+
   return (
     <div className="relative">
       <audio ref={audioRef} loop src="/music.mp3" autoPlay />
@@ -173,7 +184,7 @@ export default function Rsvp() {
             {/* Sección 2: Frase + Fecha + Contador */}
             <section id="contador" className="seccion-contador">
               <div className="frase-romantica">
-                <p>“A veces lo que empieza como una locura, se convierte en lo mejor de tu vida.”</p>
+                <p>Aquí comienza una nueva historia y queremos que formes parte de ella</p>
               </div>
 
               <div className="contenido-contador">
@@ -235,7 +246,7 @@ export default function Rsvp() {
             </section>
 
             {/* Sección: Galería */}
-            <section id="galeria" className="celebracion-section">
+            <section id="galeria" className="historia-section">
               <div className="celebracion-text">
                 <p className="subtitulo">NUESTRA HISTORIA</p>
                 <div className="mx-auto w-11/12 md:w-3/4 px-4">
@@ -265,14 +276,14 @@ export default function Rsvp() {
                     ))}
                   </Slider>
                 </div>
-                <p></p>
-                <div className="celebracion-icon-container">
-                  <Lottie options={defaultNoviosOptions} height={150} width={150} />
-                </div>
-                <div className="celebracion-text">
-                  <p className="subtitulo">Nuestra historia se viste de gala</p>
-                  <p className="subtitulo">Y TÚ TAMBIÉN!!!</p>
-                </div>
+                <p><br /></p>
+              </div>
+              <div className="celebracion-icon-container">
+                <Lottie options={defaultNoviosOptions} height={150} width={150} />
+              </div>
+              <div className="celebracion-text">
+                <p className="subtitulo">Nuestra historia se viste de gala</p>
+                <p className="subtitulo">Y TÚ TAMBIÉN!!!</p>
               </div>
             </section>
 
@@ -307,7 +318,7 @@ export default function Rsvp() {
             </section>
 
             {/* Sección: Asistencia */}
-            <section id="asistencia" className="celebracion-section">
+            <section id="asistencia" className="historia-section">
               <div className="celebracion-icon-container">
                 <Lottie options={defaultAsistenciaOptions} height={200} width={200} />
               </div>
@@ -319,7 +330,64 @@ export default function Rsvp() {
                 </button>
               </div>
             </section>
+
+            {/* Sección: Redes Sociales */}
+            <section id="redes" className="celebracion-section">
+              <div className="celebracion-icon-container">
+                <Lottie options={defaultRedesOptions} height={150} width={150} />
+              </div>
+              <div className="celebracion-text">
+                <p className="subtitulo">
+                  SI HAY FOTO, HAY HISTORIA
+                  <br />
+                  <a
+                    href="https://instagram.com/xiopalmar"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="instagram-link"
+                  >
+                    <FaInstagram style={{ marginRight: 5 }} />
+                    @xiopalmar
+                  </a>
+
+                  <a
+                    href="https://instagram.com/julioguelop_87"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="instagram-link"
+                  >
+                    <FaInstagram style={{ marginRight: 5 }} />
+                    @julioguelop_87
+                  </a>
+                </p>
+                <p className="subtitulo">
+                  Síguenos en Instagram, y etiquétanos en tus fotos y videos
+                </p>
+                <p className="subtitulo">Comparte tus fotos en nuestro álbum de Google Drive</p>
+                <button
+                  className="btn-custom"
+                  onClick={() =>
+                    window.open(
+                      'https://drive.google.com/drive/folders/1DFi0ADNAD3jCnewaNbQN2zDzTlpXAqgp?usp=sharing',
+                      '_blank'
+                    )
+                  }
+                >
+                  Subir fotos
+                </button>
+              </div>
+            </section>
+
+            {/* Sección: Gracias */}
+            <section id="gracias" className="historia-section">
+              <div className="celebracion-text">
+                <p className="subtitulo">Gracias por ser parte de este capítulo tan importante de nuestras vidas</p>
+              </div>
+            </section>
           </div>
+          <footer className="footer">
+            <p>Un regalo de <strong>Piña 🍍</strong> | Todos los derechos reservados © 2025</p>
+          </footer>
         </>
       )}
     </div>

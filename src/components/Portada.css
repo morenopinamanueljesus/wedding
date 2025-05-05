@@ -180,18 +180,18 @@ html {
   
 /* Estilo para la sección de Celebración */
 .celebracion-section {
-  background-color: #fefefe;
+  background-color: #f1e1c7;
+  padding: 50px 20px;
+  text-align: center;
+}
+
+.historia-section {
+  background-color: #ffffff;
   padding: 50px 20px;
   text-align: center;
 }
 
 .celebracion-icon-container {
-  margin-bottom: 20px;
-}
-
-.celebracion-text h2 {
-  font-size: 2.5rem;
-  color: #e74c3c;
   margin-bottom: 20px;
 }
 
@@ -262,4 +262,26 @@ html {
   font-weight: bold;
   color: #333;
   cursor: pointer;
+}
+
+.instagram-link {
+  color: #e1306c;
+  text-decoration: none;
+  font-weight: bold;
+  margin: 0 8px;
+  display: inline-flex;
+  align-items: center;
+}
+.instagram-link:hover {
+  text-decoration: underline;
+}
+
+.footer {
+  background-color: #f8f8f8;
+  color: #333;
+  text-align: center;
+  padding: 1rem 0;
+  font-size: 0.9rem;
+  margin-top: 2rem;
+  box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.05);
 }

@@ -12,7 +12,7 @@ export async function confirmarAsistencia(codigo, nombre, numero, mensaje) {
   await emailjs.send(
     "service_lwixr2b",
     "template_1e0s3hj",
-    { nombre },
+    { nombre, numero, mensaje },
     "80jNXmTMgIDfMp0sk"
   );
 }

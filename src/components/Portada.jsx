@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { db } from "../firebase";
+import { db } from "../services/firebaseService";
 import { doc, getDoc } from "firebase/firestore";
-import { useNavigate } from "react-router-dom";
-import './Portada.css';
+import { useNavigate } from "react-router-dom"; import '../styles/Portada.css';
 import fondo from '../assets/fondo.jpg';
 
 const Portada = () => {

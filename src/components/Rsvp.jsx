@@ -1,11 +1,9 @@
 import React, { useEffect, useState, useRef } from "react";
-import { db } from "../firebase";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { useParams } from "react-router-dom";
 import useCountdown from "../hooks/useCountdown";
-import './Portada.css';
+import '../styles/Invitacion.css';
 import fondo from '../assets/fondo.jpg';
-import imagen1 from '../assets/1.jpg';
+import imagen1 from '../assets/portada.jpg';
 import Lottie from 'react-lottie';
 import animationData from '../assets/brindis.json';
 import Slider from "react-slick";
@@ -17,8 +15,14 @@ import noviosAnimationData from '../assets/novios.json';
 import regaloAnimationData from '../assets/regalo.json';
 import asistenciaAnimationData from '../assets/mensaje.json';
 import redesAnimationData from '../assets/redes.json';
-import emailjs from 'emailjs-com';
 import { FaInstagram } from 'react-icons/fa';
+import { confirmarAsistencia } from '../services/confirmarService'
+import { obtenerInvitadoPorCodigo } from "../services/invitadoService";
+import Contador from './Contador';
+import FotoPortada from './FotoPortada';
+import Celebracion from './Celebracion';
+
+
 
 export default function Rsvp() {
   const { codigo } = useParams();
@@ -26,26 +30,22 @@ export default function Rsvp() {
   const [loading, setLoading] = useState(true);
   const [mostrarInvitacion, setMostrarInvitacion] = useState(false);
   const [asistencia, setAsistencia] = useState(false);
-  const [mensaje, setMensaje] = useState("");
 
   const audioRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(true);
-  const [dias, horas, minutos, segundos] = useCountdown(new Date("2025-09-19T21:00:00"));
+  const [dias, horas, minutos, segundos] = useCountdown(new Date("2025-09-19T19:45:00"));
   const [showModal, setShowModal] = useState(false);
 
-  useEffect(() => {
-    const fetchInvitado = async () => {
-      try {
-        const docRef = doc(db, "invitados", codigo);
-        const docSnap = await getDoc(docRef);
+  const [numeroComensales, setNumeroComensales] = useState(0);
+  const [mensajeParaNovios, setMensajeParaNovios] = useState("");
 
-        if (docSnap.exists()) {
-          const data = docSnap.data();
+  useEffect(() => {
+    const cargarInvitado = async () => {
+      try {
+        const data = await obtenerInvitadoPorCodigo(codigo);
+        if (data) {
           setInvitado(data);
           setAsistencia(data.asistenciaConfirmada || false);
-          setMensaje(data.mensaje || "");
-        } else {
-          console.error("Invitado no encontrado");
         }
       } catch (error) {
         console.error("Error al cargar el invitado:", error);
@@ -54,7 +54,7 @@ export default function Rsvp() {
       }
     };
 
-    fetchInvitado();
+    cargarInvitado();
   }, [codigo]);
 
   useEffect(() => {
@@ -74,15 +74,8 @@ export default function Rsvp() {
     }
 
     try {
-      await updateDoc(doc(db, "invitados", codigo), {
-        asistenciaConfirmada: true,
-      });
+      await confirmarAsistencia(codigo, invitado.nombreCompleto, numeroComensales, mensajeParaNovios);
       setAsistencia(true);
-
-      await emailjs.send("service_lwixr2b", "template_1e0s3hj", {
-        nombre: invitado.nombreCompleto
-      }, "80jNXmTMgIDfMp0sk");
-
       alert("¡Gracias por confirmar tu asistencia!");
     } catch (error) {
       console.error("Error al confirmar asistencia:", error);
@@ -168,79 +161,28 @@ export default function Rsvp() {
         <>
           <div className="full-page-scroll">
             {/* Sección 1: Foto */}
-            <section
-              id="foto"
-              className="bg-cover bg-center section-principal"
-              style={{
-                backgroundImage: `url(${imagen1})`,
-                backgroundSize: "contain",
-                backgroundRepeat: "no-repeat",
-                backgroundPosition: "center",
-              }}
-            >
-              <div className="h-full w-full" />
-            </section>
-
+            <FotoPortada imagenFotoPortada={imagen1} />
             {/* Sección 2: Frase + Fecha + Contador */}
-            <section id="contador" className="seccion-contador">
-              <div className="frase-romantica">
-                <p>Aquí comienza una nueva historia y queremos que formes parte de ella</p>
+            <Contador dias={dias} horas={horas} minutos={minutos} segundos={segundos} />
+
+            <section id="ceremonia" className="celebracion-section">
+              <div className="celebracion-icon-container">
+                <Lottie options={defaultNoviosOptions} height={150} width={150} />
               </div>
-
-              <div className="contenido-contador">
-                <p className="subtitulo">TE ESPERAMOS EL DÍA</p>
-                <h2 className="fecha-evento">19 de Septiembre a las 21:00</h2>
-
-                <div className="contador-grid">
-                  <div>
-                    <span className="numero">{dias}</span>
-                    <div className="etiqueta">Días</div>
-                  </div>
-                  <div className="separador">:</div>
-                  <div>
-                    <span className="numero">{horas}</span>
-                    <div className="etiqueta">Horas</div>
-                  </div>
-                  <div className="separador">:</div>
-                  <div>
-                    <span className="numero">{minutos}</span>
-                    <div className="etiqueta">Minutos</div>
-                  </div>
-                  <div className="separador">:</div>
-                  <div>
-                    <span className="numero">{segundos}</span>
-                    <div className="etiqueta">Segundos</div>
-                  </div>
-                </div>
-
-                <div className="mt-6">
-                  <a
-                    href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Boda+de+Nombre1+y+Nombre2&dates=20250919T190000Z/20250919T230000Z&details=¡Te+esperamos+en+Finca+El+Encanto!&location=Finca+El+Encanto,+Sevilla"
+              <div className="celebracion-text">
+                <p className="subtitulo">Nuestra historia se viste de gala y tú eres parte esencial de ella</p>
+                <p className="mt-4 text-center text-gray-700">
+                  La ceremonia comenzará a las <strong>19:45</strong>.
+                  Prepárate para compartir con nosotros un momento lleno de emoción, promesas y mucho amor.<br/>
+                  ¡Nos vemos en <strong>Hacienda Al-Yamanah!</strong>
+                </p>
+                <a
+                    href="https://maps.app.goo.gl/W1HmGLuWLanBvE5VA" 
                     target="_blank"
                     rel="noopener noreferrer"
                     className="btn-custom"
-                  >
-                    Agendar Fecha
-                  </a>
-                </div>
-              </div>
-            </section>
-
-            {/* Sección: Celebración */}
-            <section id="celebracion" className="celebracion-section">
-              <div className="celebracion-icon-container">
-                <Lottie options={defaultOptions} height={200} width={200} />
-              </div>
-              <div className="celebracion-text">
-                <p className="subtitulo">CELEBRACIÓN</p>
-                <p className="subtitulo">Será un honor contar con tu presencia para brindar por este hermoso momento.<br></br> ¡Nos vemos en Finca El Encanto!</p>
-                <a
-                  href="https://goo.gl/maps/xyz123" // Aquí va el enlace de Google Maps del lugar
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-custom"
                 >
-                  Ver Ubicación
+                    Ver Ubicación
                 </a>
               </div>
             </section>
@@ -248,7 +190,6 @@ export default function Rsvp() {
             {/* Sección: Galería */}
             <section id="galeria" className="historia-section">
               <div className="celebracion-text">
-                <p className="subtitulo">NUESTRA HISTORIA</p>
                 <div className="mx-auto w-11/12 md:w-3/4 px-4">
                   <Slider
                     dots={false}
@@ -278,17 +219,12 @@ export default function Rsvp() {
                 </div>
                 <p><br /></p>
               </div>
-              <div className="celebracion-icon-container">
-                <Lottie options={defaultNoviosOptions} height={150} width={150} />
-              </div>
-              <div className="celebracion-text">
-                <p className="subtitulo">Nuestra historia se viste de gala</p>
-                <p className="subtitulo">Y TÚ TAMBIÉN!!!</p>
-              </div>
             </section>
 
+            {/* Sección: Celebración */}
+            <Celebracion defaultOptions={defaultOptions} />
             {/* Sección: Regalo */}
-            <section id="regalo" className="celebracion-section">
+            <section id="regalo" className="historia-section">
               <div className="celebracion-icon-container">
                 <Lottie options={defaultRegaloOptions} height={200} width={200} />
               </div>
@@ -318,21 +254,56 @@ export default function Rsvp() {
             </section>
 
             {/* Sección: Asistencia */}
-            <section id="asistencia" className="historia-section">
+            <section id="asistencia" className="celebracion-section">
               <div className="celebracion-icon-container">
                 <Lottie options={defaultAsistenciaOptions} height={200} width={200} />
               </div>
               <div className="celebracion-text">
                 <p className="subtitulo">CONFIRMA TU ASISTENCIA</p>
                 <p className="subtitulo">Dí un Sí a nuestra invitación!!!</p>
-                <button className="btn-custom" onClick={handleConfirmarAsistencia}>
-                  Confirmar asistencia
-                </button>
+                <p className="nota-ninos">
+                  *Con mucho cariño, les pedimos que este día tan especial sea solo para adultos.
+                  Queremos que puedan relajarse, disfrutar y celebrar con nosotros sin preocupaciones.
+                </p>
+                {asistencia ? (
+                  <p className="mensaje-confirmado">✅ Ya confirmaste tu asistencia. ¡Gracias!</p>
+                ) : (
+                  <form className="form-asistencia" onSubmit={(e) => {
+                    e.preventDefault();
+                    handleConfirmarAsistencia();
+                  }}>
+                    <div className="form-group">
+                      <label htmlFor="comensales">Número de comensales:</label>
+                      <input
+                        type="number"
+                        id="comensales"
+                        min="1"
+                        max="10"
+                        value={numeroComensales}
+                        onChange={(e) => setNumeroComensales(parseInt(e.target.value))}
+                        required
+                      />
+                    </div>
+
+                    <div className="form-group">
+                      <label htmlFor="mensaje">Mensaje para los novios:</label>
+                      <textarea
+                        id="mensaje"
+                        rows="4"
+                        value={mensajeParaNovios}
+                        onChange={(e) => setMensajeParaNovios(e.target.value)}
+                        placeholder="Déjanos unas palabras bonitas..."
+                      ></textarea>
+                    </div>
+
+                    <button type="submit" className="btn-custom">Confirmar asistencia</button>
+                  </form>
+                )}
               </div>
             </section>
 
             {/* Sección: Redes Sociales */}
-            <section id="redes" className="celebracion-section">
+            <section id="redes" className="historia-section">
               <div className="celebracion-icon-container">
                 <Lottie options={defaultRedesOptions} height={150} width={150} />
               </div>
@@ -379,7 +350,7 @@ export default function Rsvp() {
             </section>
 
             {/* Sección: Gracias */}
-            <section id="gracias" className="historia-section">
+            <section id="gracias" className="celebracion-section">
               <div className="celebracion-text">
                 <p className="subtitulo">Gracias por ser parte de este capítulo tan importante de nuestras vidas</p>
               </div>

@@ -1,5 +1,6 @@
 .portada {
-  height: 100vh;
+  min-height: 100vh;
+  height: auto;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -11,13 +12,6 @@
   position: relative;
 }
 
-.portada.h-auto {
-  height: auto;
-  width: 100%;
-  align-items: stretch;
-  justify-content: flex-start;
-  display: block; /* importante para que no limite flex a todo el contenido */
-}
 
 .titulo {
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
@@ -49,16 +43,9 @@
 }
 
 html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
   overflow-x: hidden;
-  overflow-y: scroll;
 }
 
-body {
-  overflow-y: scroll; /* Permite scroll vertical */
-}
 
 .full-page-scroll {
   flex-direction: column;
@@ -284,4 +271,59 @@ html {
   font-size: 0.9rem;
   margin-top: 2rem;
   box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.05);
+}
+
+.form-asistencia {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #444;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-family: inherit;
+  background-color: #fdfdfd;
+  box-shadow: 2px 2px 6px rgba(0,0,0,0.05);
+  transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #e91e63;
+}
+
+.mensaje-confirmado {
+  font-weight: bold;
+  color: green;
+  margin-top: 1rem;
+  font-size: 1.1rem;
+}
+
+section#asistencia  .nota-ninos {
+  font-size: 0.7rem;
+  font-style: italic;
+  color: #777;
+  margin-bottom: 1rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
 }

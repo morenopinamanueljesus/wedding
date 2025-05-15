@@ -1,4 +1,3 @@
-import React from 'react';
 import '../styles/Portada.css'; // Si tienes un archivo CSS para estilizar el modal
 
 const Modal = ({ isOpen, onClose, children }) => {

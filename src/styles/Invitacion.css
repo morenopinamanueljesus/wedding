@@ -101,6 +101,20 @@ html {
   letter-spacing: 1px;
 }
 
+section#contador .subtitulo {
+  font-size: 1.5rem;
+  color: #555;
+  margin-bottom: 0.5rem;
+  letter-spacing: 1px;
+}
+
+section#contador .subtitulo-texto {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 0.5rem;
+  letter-spacing: 1px;
+}
+
 .fecha-evento {
   font-size: 2rem;
   font-weight: bold;
@@ -326,4 +340,24 @@ section#asistencia  .nota-ninos {
   margin-left: auto;
   margin-right: auto;
   text-align: center;
+}
+
+.contacto-divertido {
+  font-size: 1.1rem;
+  color: #ffffff;
+  background-color: #ffffff;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin: 1.5rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.contacto-divertido a.telefono-link {
+  color: #777;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.contacto-divertido a.telefono-link:hover {
+  text-decoration: underline;
 }

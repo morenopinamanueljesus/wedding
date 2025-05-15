@@ -3,10 +3,15 @@ import React from 'react';
 const Contador = ({ dias, horas, minutos, segundos }) => {
   return (
     <section id="contador" className="seccion-contador">
-      <div className="frase-romantica">
-        <p>Aquí comienza una nueva historia y queremos que formes parte de ella</p>
+      <div className="celebracion-section">
+        <div className="celebracion-text">
+          <p className="subtitulo"><strong>¡Después de 10 años, al fin... nos casamos! 🎉</strong></p>
+          <p className="subtitulo-texto">No prometemos un cuento de hadas, pero sí una buena fiesta.<br />
+            Queremos compartir con vosotros este momento tan especial, a nuestra manera:
+            sin protocolos, sin prisas y con muchas ganas de celebrar. <br />
+            Para brindar por el amor, la paciencia, y las decisiones que se cocinan a fuego lento.</p>
+        </div>
       </div>
-
       <div className="contenido-contador">
         <p className="subtitulo">TE ESPERAMOS EL DÍA</p>
         <h2 className="fecha-evento">19 de Septiembre</h2>

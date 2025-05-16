@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { db } from "../services/firebaseService";
 import { doc, getDoc } from "firebase/firestore";
-import { useNavigate } from "react-router-dom"; import '../styles/Portada.css';
-import fondo from '../assets/fondo.jpg';
+import { useNavigate } from "react-router-dom";
+import '../styles/Portada.css';
+import fondo from '../assets/galeria1.jpg';
 
 const Portada = () => {
   const [codigo, setCodigo] = useState("");
@@ -26,6 +27,7 @@ const Portada = () => {
       } else {
         // Si no existe, muestra un mensaje de error
         setError("Código no válido. Intenta de nuevo.");
+        console.error("Código no válido. Intenta de nuevo.");
       }
     } catch (error) {
       setError("Error al verificar el código.");
@@ -37,29 +39,32 @@ const Portada = () => {
 
   return (
     <div
-      className="portada"
+      className="principal"
       style={{ backgroundImage: `url(${fondo})` }}
     >
-      <div className="overlay-box p-4 text-center">
-        <div className="titulo text-center text-black mb-5">
-          <h1 className="display-4 fw-bold">Rocío & Julio</h1>
-          <p className="fs-4">19 de Septiembre de 2025</p>
-        </div>
-        <h4 className="fw-bold text-uppercase mb-3">
-          ¡Nos encantaría que seas parte de este día tan especial!
-        </h4>
-        <p className="mb-4">Ingresa tu código para continuar:</p>
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            className="form-control mb-3 text-center"
-            placeholder="Código de invitación"
-            value={codigo}
-            onChange={(e) => setCodigo(e.target.value)}
-            required
-          />
-          <button type="submit" className="btn-custom w-full rounded">Ver invitación</button>
-        </form>
+      <div className="box-formulario-portada text-center">
+          <p className="fs-1 fw-bold">Rocío & Julio</p>
+          <p className="fs-5 fw-bold">19 de Septiembre de 2025
+          <br/>
+            ¡Nos encantaría que seas parte de este día tan especial!
+          </p>
+          <p className="mb-2">Ingresa tu código para continuar:</p>
+          <form onSubmit={handleSubmit}>
+            <div className="d-flex justify-content-center">
+            <input
+              type="text"
+              className="form-control mb-1 text-center w-75"
+              placeholder="Código de invitación"
+              value={codigo}
+              onChange={(e) => setCodigo(e.target.value)}
+              required
+            />
+            </div>
+            {error && (
+              <p className="text-danger text-center mb-3">{error}</p>
+            )}
+            <button type="submit" className="btn-portada w-full rounded">Ver invitación</button>
+          </form>
       </div>
     </div>
   );

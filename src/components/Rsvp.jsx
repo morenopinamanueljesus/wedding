@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import useCountdown from "../hooks/useCountdown";
 import '../styles/Invitacion.css';
-import fondo from '../assets/fondo.jpg';
+import fondo from '../assets/galeria1.jpg';
 import imagen1 from '../assets/portada.jpg';
 import Lottie from 'react-lottie';
 import animationData from '../assets/brindis.json';
@@ -20,6 +20,7 @@ import Galeria from "./Galeria";
 import Regalo from "./Regalo";
 import Redes from "./Redes";
 import Gracias from "./Gracias";
+import Invitacion from "./Acceso";
 
 export default function Rsvp() {
   const { codigo } = useParams();
@@ -131,22 +132,14 @@ export default function Rsvp() {
     <div className="relative">
       <audio ref={audioRef} loop src="/music.mp3" autoPlay />
       <button className="music-control" onClick={() => setIsPlaying(!isPlaying)}>
-        {isPlaying ? "🔇 Pausar música" : "🔊 Reproducir música"}
+        {isPlaying ? "🔇" : "🔊"}
       </button>
 
       {!mostrarInvitacion ? (
-        <div
-          className={`portada ${mostrarInvitacion ? 'h-auto min-h-screen' : ''}`}
-          style={{ backgroundImage: `url(${fondo})` }}
-        >
-          <div className="overlay-box text-center mt-4 p-4">
-            <div className="titulo text-center text-black mb-5">
-              <h1 className="display-4 fw-bold">Hola, {invitado?.nombreCompleto}</h1>
-            </div>
-            <h4 className="fw-bold text-uppercase mb-3">Nos hace muy felices que estés invitado a nuestro gran día.</h4>
-            <button className="btn-custom" onClick={() => setMostrarInvitacion(true)}>Abrir Invitación</button>
-          </div>
-        </div>
+        <Invitacion 
+          nombreCompleto={invitado?.nombreCompleto} 
+          mostrarInvitacion={mostrarInvitacion}
+          setMostrarInvitacion={setMostrarInvitacion}/>
       ) : (
         <>
           <div className="full-page-scroll">
@@ -157,7 +150,7 @@ export default function Rsvp() {
             {/* Sección 3: Ceremonia */}
             <Ceremonia defaultOptions={defaultNoviosOptions} />
             {/* Sección 4: Galería */}
-            <Galeria></Galeria>
+            <Galeria/>
             {/* Sección 5: Celebración */}
             <Celebracion defaultOptions={defaultOptions} />
             {/* Sección 6: Regalo */}

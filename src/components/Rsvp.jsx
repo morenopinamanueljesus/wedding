@@ -2,7 +2,6 @@ import { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import useCountdown from "../hooks/useCountdown";
 import '../styles/Invitacion.css';
-import fondo from '../assets/galeria1.jpg';
 import imagen1 from '../assets/portada.jpg';
 import Lottie from 'react-lottie';
 import animationData from '../assets/brindis.json';
@@ -136,10 +135,10 @@ export default function Rsvp() {
       </button>
 
       {!mostrarInvitacion ? (
-        <Invitacion 
-          nombreCompleto={invitado?.nombreCompleto} 
+        <Invitacion
+          nombreCompleto={invitado?.nombreCompleto}
           mostrarInvitacion={mostrarInvitacion}
-          setMostrarInvitacion={setMostrarInvitacion}/>
+          setMostrarInvitacion={setMostrarInvitacion} />
       ) : (
         <>
           <div className="full-page-scroll">
@@ -150,7 +149,7 @@ export default function Rsvp() {
             {/* Sección 3: Ceremonia */}
             <Ceremonia defaultOptions={defaultNoviosOptions} />
             {/* Sección 4: Galería */}
-            <Galeria/>
+            <Galeria />
             {/* Sección 5: Celebración */}
             <Celebracion defaultOptions={defaultOptions} />
             {/* Sección 6: Regalo */}

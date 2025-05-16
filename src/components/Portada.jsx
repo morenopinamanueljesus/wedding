@@ -43,12 +43,9 @@ const Portada = () => {
       style={{ backgroundImage: `url(${fondo})` }}
     >
       <div className="box-formulario-portada text-center">
-          <p className="fs-1 fw-bold">Rocío & Julio</p>
-          <p className="fs-5 fw-bold">19 de Septiembre de 2025
-          <br/>
-            ¡Nos encantaría que seas parte de este día tan especial!
-          </p>
-          <p className="mb-2">Ingresa tu código para continuar:</p>
+        <br/>
+          <p className="box-formulario-portada-texto">Rocío & Julio</p>
+          <p className="mb-2">Ingresa tu código para <br/>continuar:</p>
           <form onSubmit={handleSubmit}>
             <div className="d-flex justify-content-center">
             <input

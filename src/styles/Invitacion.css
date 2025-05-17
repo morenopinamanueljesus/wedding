@@ -331,7 +331,7 @@ section#contador .subtitulo-texto {
 }
 
 section#asistencia  .nota-ninos {
-  font-size: 0.7rem;
+  font-size: 1rem;
   font-style: italic;
   color: #777;
   margin-bottom: 1rem;

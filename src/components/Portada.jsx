@@ -45,7 +45,7 @@ const Portada = () => {
       <div className="box-formulario-portada text-center">
         <br/>
           <p className="box-formulario-portada-texto">Rocío & Julio</p>
-          <p className="mb-2">Ingresa tu código para <br/>continuar:</p>
+          <p className="mb-2"><strong>Ingresa tu código para <br/>continuar:</strong></p>
           <form onSubmit={handleSubmit}>
             <div className="d-flex justify-content-center">
             <input

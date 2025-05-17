@@ -13,8 +13,9 @@ const Invitacion = ({ nombreCompleto, mostrarInvitacion, setMostrarInvitacion })
                     “El amor se celebra con quienes lo hacen aún más grande. Y tú eres parte de eso.”<br/>
                     Estamos preparando cada detalle con mucho cariño y sería un honor contar contigo en nuestro gran día.
                 </p>
-                <button className="btn-acceso" onClick={() => setMostrarInvitacion(true)}>Abrir Invitación</button>
             </div>
+                <button className="btn-acceso" onClick={() => setMostrarInvitacion(true)}>Abrir Invitación</button>
+
         </div>
     )
 }

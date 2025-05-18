@@ -26,6 +26,7 @@ export default function Rsvp() {
   const [invitado, setInvitado] = useState(null);
   const [loading, setLoading] = useState(true);
   const [mostrarInvitacion, setMostrarInvitacion] = useState(false);
+  const [nombresComensales, setNombresComensales] = useState([]);
   const [asistencia, setAsistencia] = useState(false);
 
   const audioRef = useRef(null);
@@ -34,6 +35,24 @@ export default function Rsvp() {
 
   const [numeroComensales, setNumeroComensales] = useState(0);
   const [mensajeParaNovios, setMensajeParaNovios] = useState("");
+
+  const handleNumeroComensalesChange = (e) => {
+    const value = parseInt(e.target.value);
+    setNumeroComensales(e.target.value); 
+
+    if (!isNaN(value) && value > 0) {
+      const nuevosNombres = Array.from({ length: value }, (_, i) => nombresComensales[i] || '');
+      setNombresComensales(nuevosNombres);
+    } else {
+      setNombresComensales([]);
+    }
+  };
+
+  const handleNombreChange = (index, value) => {
+    const nuevos = [...nombresComensales];
+    nuevos[index] = value;
+    setNombresComensales(nuevos);
+  };
 
   useEffect(() => {
     const cargarInvitado = async () => {
@@ -70,7 +89,7 @@ export default function Rsvp() {
     }
 
     try {
-      await confirmarAsistencia(codigo, invitado.nombreCompleto, numeroComensales, mensajeParaNovios);
+      await confirmarAsistencia(codigo, invitado.nombreCompleto, numeroComensales, mensajeParaNovios, nombresComensales);
       setAsistencia(true);
       alert("¡Gracias por confirmar tu asistencia!");
     } catch (error) {
@@ -169,10 +188,13 @@ export default function Rsvp() {
                 {asistencia ? (
                   <p className="subtitulo">✅ Ya confirmaste tu asistencia. ¡Gracias!</p>
                 ) : (
-                  <form className="form-asistencia" onSubmit={(e) => {
-                    e.preventDefault();
-                    handleConfirmarAsistencia();
-                  }}>
+                  <form
+                    className="form-asistencia"
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      handleConfirmarAsistencia();
+                    }}
+                  >
                     <div className="form-group">
                       <label htmlFor="comensales">Número de comensales:</label>
                       <input
@@ -181,10 +203,22 @@ export default function Rsvp() {
                         min="1"
                         max="10"
                         value={numeroComensales}
-                        onChange={(e) => setNumeroComensales(parseInt(e.target.value))}
+                        onChange={handleNumeroComensalesChange}
                         required
                       />
                     </div>
+
+                    {nombresComensales.map((nombre, index) => (
+                      <div className="form-group" key={index}>
+                        <label>Nombre y apellidos del comensal {index + 1}:</label>
+                        <input
+                          type="text"
+                          value={nombre}
+                          onChange={(e) => handleNombreChange(index, e.target.value)}
+                          required
+                        />
+                      </div>
+                    ))}
 
                     <div className="form-group">
                       <label htmlFor="mensaje">Mensaje para los novios:</label>
@@ -196,6 +230,7 @@ export default function Rsvp() {
                         placeholder="Déjanos unas palabras bonitas..."
                       ></textarea>
                     </div>
+
                     <button type="submit" className="btn-custom">Confirmar asistencia</button>
                   </form>
                 )}

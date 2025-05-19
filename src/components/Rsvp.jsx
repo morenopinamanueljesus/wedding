@@ -196,7 +196,7 @@ export default function Rsvp() {
                     }}
                   >
                     <div className="form-group">
-                      <label htmlFor="comensales">Número de comensales:</label>
+                      <label htmlFor="comensales">Número de asistentes:</label>
                       <input
                         type="number"
                         id="comensales"
@@ -210,7 +210,7 @@ export default function Rsvp() {
 
                     {nombresComensales.map((nombre, index) => (
                       <div className="form-group" key={index}>
-                        <label>Nombre y apellidos del comensal {index + 1}:</label>
+                        <label>Nombre y apellidos del asistente {index + 1}:</label>
                         <input
                           type="text"
                           value={nombre}

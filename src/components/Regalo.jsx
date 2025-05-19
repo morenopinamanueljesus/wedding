@@ -34,8 +34,7 @@ const Regalo = ({ defaultOptions }) => {
                     <div className="custom-modal-content">
                         <span className="close" onClick={toggleModal}>&times;</span>
                         <h3>Datos Bancarios</h3>
-                        <p>Cuenta: 0073 0100 5106 6795 0864</p>
-                        <p>IBAN: ES37 0073 0100 5106 6795 0864</p>
+                        <p>Cuenta: ES37 0073 0100 5106 6795 0864</p>
                         <p>Concepto: Regalo boda Rocío y Julio</p>
                     </div>
                 </div>

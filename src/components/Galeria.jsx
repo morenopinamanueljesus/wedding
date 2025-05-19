@@ -2,7 +2,7 @@ import Slider from "react-slick";
 import foto1 from "../assets/galeria1.jpg";
 import foto2 from "../assets/galeria2.jpg";
 import foto3 from "../assets/galeria3.jpg";
-import foto4 from "../assets/fondo.jpg";
+import foto4 from "../assets/galeria4.jpg";
 
 const Galeria = ({ }) => {
     return (

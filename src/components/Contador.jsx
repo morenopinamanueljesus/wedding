@@ -40,7 +40,7 @@ const Contador = ({ dias, horas, minutos, segundos }) => {
 
         <div className="mt-6">
           <a
-            href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Boda+de+Rocío+y+Julio&dates=20250919T194500Z/20250919T230000Z&details=¡Te+esperamos+en+Hacienda+Al-Yamanah!&location=Hacienda+Al-Yamanah,+Sevilla"
+            href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Boda+de+Rocío+y+Julio&dates=20250919T174500Z/20250919T230000Z&details=¡Te+esperamos+en+Hacienda+Al-Yamanah!&location=Hacienda+Al-Yamanah,+Sevilla"
             target="_blank"
             rel="noopener noreferrer"
             className="btn-custom"

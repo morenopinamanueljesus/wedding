@@ -35,6 +35,8 @@ export default function Rsvp() {
 
   const [numeroComensales, setNumeroComensales] = useState(0);
   const [mensajeParaNovios, setMensajeParaNovios] = useState("");
+  const esAdmin = invitado?.admin === true;
+
 
   const handleNumeroComensalesChange = (e) => {
     const value = parseInt(e.target.value);
@@ -157,7 +159,8 @@ export default function Rsvp() {
         <Invitacion
           nombreCompleto={invitado?.nombreCompleto}
           mostrarInvitacion={mostrarInvitacion}
-          setMostrarInvitacion={setMostrarInvitacion} />
+          setMostrarInvitacion={setMostrarInvitacion} 
+          esAdmin={esAdmin}/>
       ) : (
         <>
           <div className="full-page-scroll">
